@@ -28,8 +28,8 @@ const userRouter = require("./routes/user.js");
 const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
 
 mongoose.connect(dbUrl)
-    .then(() => console.log("✅ MongoDB Connected"))
-    .catch(err => console.error("❌ MongoDB Connection Error:", err));
+    .then(() => console.log(" MongoDB Connected"))
+    .catch(err => console.error(" MongoDB Connection Error:", err));
 
 // --- App Setup ---
 app.engine("ejs", ejsMate);
@@ -83,6 +83,11 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+//  Root Route (Homepage Redirect)
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
+
 // --- 404 Not Found Handler ---
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404));
@@ -92,12 +97,12 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || "Something went wrong!";
-    console.error("❌ Server Error:", err);
+    console.error(" Server Error:", err);
     res.status(statusCode).render("listings/error", { message });
 });
 
 // --- Start Server ---
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`🚀 Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
