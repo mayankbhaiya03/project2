@@ -1,0 +1,18 @@
+resize
+rotation
+translation
+normalization
+<!--<%for(review of listing.reviews){%>
+
+   <%}%>
+
+
+<% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+<% } %> line no.27
+
+
+mongodb+srv://yourwebbuilder3:<db_password>@cluster0.r1zea5s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+mongodb+srv://yourwebbuilder3:Mayank@1234@cluster0.r1zea5s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+pass-Mayank1234
