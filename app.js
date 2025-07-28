@@ -98,10 +98,18 @@ app.all("*", (req, res, next) => {
 });
 
 // Error Handler
+// Error Handler (Safe fallback)
 app.use((err, req, res, next) => {
+    console.error(" ERROR:", err);
     const { statusCode = 500, message = "Something went wrong!" } = err;
-    res.status(statusCode).render("listings/error.ejs", { message });
+    
+    try {
+        res.status(statusCode).render("listings/error.ejs", { message });
+    } catch {
+        res.status(statusCode).send(message);
+    }
 });
+
 
 
 const port = process.env.PORT || 8080;
