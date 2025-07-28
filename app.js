@@ -86,19 +86,16 @@ app.all("*", (req, res, next) => {
 });
 
 // --- Error Handler ---
+// --- Error Handler ---
 app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    const message = err.message || "Internal Server Error";
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Something went wrong!";
 
-    console.error(" Server Error:", err);
+    console.error("Server Error:", err);
 
-    // Fallback in case the EJS rendering fails
-    try {
-        res.status(statusCode).render("listings/error", { message });
-    } catch (e) {
-        res.status(statusCode).send(`<h1>${statusCode}</h1><p>${message}</p>`);
-    }
+    res.status(statusCode).render("listings/error", { message });
 });
+
 
 // --- Start Server ---
 const port = process.env.PORT || 8080;
