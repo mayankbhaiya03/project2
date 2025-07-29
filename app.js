@@ -98,7 +98,8 @@ app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || "Something went wrong!";
     console.error(" Server Error:", err);
-    res.status(statusCode).render("listings/error", { message });
+  res.status(statusCode).send(`<h1>${message}</h1><pre>${err.stack}</pre>`);
+
 });
 
 // --- Start Server ---
